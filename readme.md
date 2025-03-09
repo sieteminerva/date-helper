@@ -135,6 +135,9 @@ Calculates the date of when the next / last Sunday from `parameter` or will calc
 * Returns
   + A `Date` object of next or last sunday from given `date` or `currentDate`
 
+
+
+
 ### `next() / last()`
 
 This method calculates the next date based on the given parameters. It takes a variable number of parameters, which can be either `IDatetimeDistance` objects or `IDatetimePartObject` objects.
@@ -166,3 +169,42 @@ const calculatedLastDate = dateHelper.last(params);
 console.log(calculatedLastDate);
 ```
 
+
+=====================================
+
+Generate Schedule Date Function
+=====================================
+
+### Overview
+  The `generateScheduleDate` function is an example usage of the `AioDatetimeHelper` class. It generates a schedule date based on the provided interval and notification configuration.
+
+### Function Signature
+
+```typescript
+generateScheduleDate(i: number, config: INotificationConfig): Date
+```
+
+### Parameters
++ `i`: The interval value used to calculate the schedule date.
++ `config`: An object implementing the `INotificationConfig` interface, which contains notification settings.
+
+### Returns
+A `Date` object representing the generated schedule date.
+
+## Usage
+This function demonstrates how to utilize the `AioDatetimeHelper` class to calculate a schedule date based on a given interval and notification configuration. You can use this function as a starting point to integrate scheduling logic into your application.
+
+### Example
+```typescript
+const notificationConfig: INotificationConfig = {
+  // notification settings
+};
+
+const interval = 30; // 30 minutes
+
+const scheduleDate = generateScheduleDate(interval, notificationConfig);
+console.log(scheduleDate);
+```
+Note that this function is an example usage of the `AioDatetimeHelper` class. You may need to modify it to fit your specific use case or application requirements.
+
+cheers `YMGH` 🥳🍻

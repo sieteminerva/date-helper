@@ -437,6 +437,7 @@ export class AioDatetimeHelper {
 
 /**
  * @description
+ * An example implementation of the `Date Helper class` to generate a `schedules`.
  * Generates a Date object representing a scheduled date given a configuration and an index.
  *
  * @param {number} i - The index for the scheduled date.
@@ -458,8 +459,7 @@ export function generateScheduleDate(i: number, config: INotificationConfig): Da
       } else { hour = 0; }
       at = new Date(_Date
         .next({ distance: i * 4, unit: 'hour' })
-        .setHours(hour, config.time.minute ?? 0, config.time.second ?? 0))
-        /* .toLocaleString(_Date.locale, _Date.localeStringOptions) */;
+        .setHours(hour, config.time.minute ?? 0, config.time.second ?? 0));
       break;
     case "three times a day":
       if (i % 3 === 0) {
@@ -471,32 +471,27 @@ export function generateScheduleDate(i: number, config: INotificationConfig): Da
       } else { hour = 0; }
       at = new Date(_Date
         .next({ distance: i * 8, unit: 'hour' })
-        .setHours(hour, config.time.minute ?? 0, config.time.second ?? 0))
-        /* .toLocaleString(_Date.locale, _Date.localeStringOptions) */;
+        .setHours(hour, config.time.minute ?? 0, config.time.second ?? 0));
       break;
     case "dialy":
       at = new Date(_Date
         .next({ distance: currentHour < (config.time.hour - 1) ? i : (i + 1), unit: 'day' })
-        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0))
-        /* .toLocaleString(_Date.locale, _Date.localeStringOptions) */;
+        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0));
       break;
     case "weekly":
       at = new Date(_Date
         .next({ distance: i, unit: 'week' })
-        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0))
-        /* .toLocaleString(_Date.locale, _Date.localeStringOptions) */;
+        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0));
       break;
     case "twice a week":
       at = new Date(_Date
         .next({ distance: i * 3, unit: 'day' })
-        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0))
-        /* .toLocaleString(_Date.locale, _Date.localeStringOptions) */;
+        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0));
       break;
     case "monthly":
       at = new Date(_Date
         .next({ distance: i, unit: 'month' })
-        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0))
-        /* .toLocaleString(_Date.locale, _Date.localeStringOptions) */;
+        .setHours(config.time.hour, config.time.minute ?? 0, config.time.second ?? 0));
       break;
     default:
       at = new Date();
