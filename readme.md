@@ -1,9 +1,8 @@
 # Date Helper Class
-=====================
 
 A utility class for working with dates in JavaScript.
 
-> npm install @jekipedia/date-helper
+>     npm install @jekipedia/date-helper
 
 
 ## Overview
