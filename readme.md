@@ -3,6 +3,9 @@
 
 A utility class for working with dates in JavaScript.
 
+> npm install @jekipedia/date-helper
+
+
 ## Overview
 
 The `DateHelper` class provides a set of methods for performing common date-related tasks, such as calculating the next or last occurrence of a date based on a given set of parameters.
@@ -11,6 +14,7 @@ The `DateHelper` class provides a set of methods for performing common date-rela
   copy `./src/date-helper.class.ts` and use it by importing the class to your project
 
 ```typescript
+  import { AioDatetimeHelper } from '@jekipedia/date-helper';
 
   const currentDate = new Date(); // the date you want to calculate
   const format = 'toLocaleString' // date format
