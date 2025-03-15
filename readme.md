@@ -40,11 +40,11 @@ The `distance` method of the `AioDateHelper` class calculates the time differenc
 
 ## Usage
 ```typescript
-const aioDateHelper = new AioDateHelper();
+const dateHelper = new AioDatetimeHelper();
 const date1 = new Date('2020-01-01');
 const date2 = new Date('2022-06-15');
 
-const difference = aioDateHelper.distance(date1, date2);
+const difference = dateHelper.distance(date1, date2);
 console.log(difference);
 // Output: { year: 2, month: 5, day: 14, hour: 0, minute: 0, second: 0 }
 ```
@@ -66,8 +66,9 @@ This method returns the multiplier for a given unit of time.
 
 ## Usage
 ```typescript
-const multiplier = multiplier('day'); // returns the multiplier for days
-const multiplier = multiplier('hour'); // returns the multiplier for hours
+const dateHelper = new AioDatetimeHelper();
+const multiplier = dateHelper.multiplier('day'); // returns the multiplier for days
+const multiplier = dateHelper.multiplier('hour'); // returns the multiplier for hours
 ```
 * Multiplier Values
   + The multiplier values are used to convert between different units of time.
@@ -105,9 +106,9 @@ This method extracts date parts from a `Date` object or auto-normalizes excess t
 ## Usage
 
 ```typescript
-
-const dateParts = getDatePart(new Date()); // extracts date parts from the current date
-const dateParts = getDatePart({ second: 75, minute: 90, hour: 25 }); // normalizes excess time from one unit to another
+const dateHelper = new AioDatetimeHelper();
+const dateParts1 = dateHelper.getDatePart(new Date()); // extracts date parts from the current date
+const dateParts2 = dateHelper.getDatePart({ second: 75, minute: 90, hour: 25 }); // normalizes excess time from one unit to another
   
 ```
 ### Normalization Rules
@@ -126,6 +127,7 @@ const dateParts = getDatePart({ second: 75, minute: 90, hour: 25 }); // normaliz
 Calculates the date of when the next / last Sunday from `parameter` or will calculated from `currentDate` given.
 
 ```typescript
+  const dateHelper = new AioDatetimeHelper();
   const date = new Date('2022-13-19');
   const nextSunday = dateHelper.nextSunday(date); // returns new Date('2022-03-23')
   const lastSunday = dateHelper.lastSunday(date); // returns new Date('2025-03-16')
@@ -158,10 +160,12 @@ This method calculates the next date based on the given parameters. It takes a v
 ## Usage
 
 ```typescript
-const nextDate = next({ distance: 1, unit: 'day' }); // adds 1 day to the current date
-const nextDate = last({ distance: 1, unit: 'year' }, {distance: 3, unit: 'month'}); // adds 1 day to the current date
-const nextDate = next({ second: 30, minute: 15 }); // adds 30 seconds and 15 minutes to the current date
-const nextDate = last({ year: 1 }, { month: 2 }); // adds 1 year and 2 months to the current date
+const dateHelper = new AioDatetimeHelper();
+
+const nextDate1 = dateHelper.next({ distance: 1, unit: 'day' }); // adds 1 day to the current date
+const lastDate1 = dateHelper.last({ distance: 1, unit: 'year' }, {distance: 3, unit: 'month'}); // adds 1 day to the current date
+const nextDate2 = dateHelper.next({ second: 30, minute: 15 }); // adds 30 seconds and 15 minutes to the current date
+const lastDate2 = dateHelper.last({ year: 1 }, { month: 2 }); // adds 1 year and 2 months to the current date
 
 const calculatedNextDate = dateHelper.next(params);
 console.log(calculatedNextDate);
@@ -185,7 +189,7 @@ generateScheduleDate(i: number, config: INotificationConfig): Date
 ```
 
 ### Parameters
-+ `i`: The interval value used to calculate the schedule date.
++ `i`: How many schedule date you want to create.
 + `config`: An object implementing the `INotificationConfig` interface, which contains notification settings.
 
 ### Returns
@@ -196,14 +200,19 @@ This function demonstrates how to utilize the `AioDatetimeHelper` class to calcu
 
 ### Example
 ```typescript
-const notificationConfig: INotificationConfig = {
-  // notification settings
-};
 
-const interval = 30; // 30 minutes
-
-const scheduleDate = generateScheduleDate(interval, notificationConfig);
-console.log(scheduleDate);
+  const config: INotificationConfig = {
+    range: 'twice a week',
+    time: { hour: 12, minute: 0, second: 0 },
+    qty: 7
+  };
+  
+  // Create 7 date objects that fall within the range `twice a week` with time 12:00:00,
+  for (let i = 0; i < (config.qty as number + 1); i++) {
+    const at = generateScheduleDate(i, config);
+    console.log(`date ${i} :`, at);
+  }
+  
 ```
 Note that this function is an example usage of the `AioDatetimeHelper` class. You may need to modify it to fit your specific use case or application requirements.
 

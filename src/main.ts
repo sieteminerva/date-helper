@@ -1,4 +1,5 @@
-import { AioDatetimeHelper, IDatetimeDistance } from './date-helper.class';
+import { AioDatetimeHelper } from './date-helper.class';
+import { IDatetimeDistance } from './date-helper.interface';
 import './style.css';
 
 /* Date Distance 
@@ -14,9 +15,9 @@ function calculateDistance() {
 
   function handleDateChange() {
     console.clear();
-    const date1 = dateEl_1.valueAsDate;
+    const date1 = new Date(dateEl_1.value);
     console.log('Date 1 :', date1);
-    const date2 = dateEl_2.valueAsDate;
+    const date2 = new Date(dateEl_2.value);
     console.log('Date 2 :', date2);
 
     if (date1 && date2) {
@@ -131,11 +132,12 @@ function getDatePart() {
   const dateHelper = new AioDatetimeHelper();
 
   function handleDatePartChange() {
-    const date = datePart.valueAsDate;
+    const date = datePart.value;
+    console.log(date);
     if (date) {
       console.clear();
       console.log('Date Part Source :', date);
-      const dateParts = dateHelper.getDatePart(date);
+      const dateParts = dateHelper.getDatePart(new Date(date));
       console.log('Date Part :', date);
       datePartOutput.innerHTML = JSON.stringify(dateParts);
     }
