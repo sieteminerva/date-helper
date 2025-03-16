@@ -1,9 +1,11 @@
 # Date Helper Class
+version 0.1.5
 
 A utility class for working with dates in JavaScript.
 
->     npm install @jekipedia/date-helper
-
+```bash
+ npm install @jekipedia/date-helper
+```
 
 ## Overview
 
@@ -13,11 +15,11 @@ The `DateHelper` class provides a set of methods for performing common date-rela
   copy `./src/date-helper.class.ts` and use it by importing the class to your project
 
 ```typescript
-  import { AioDatetimeHelper } from '@jekipedia/date-helper';
+  import { AioDateHelper } from '@jekipedia/date-helper';
 
   const currentDate = new Date(); // the date you want to calculate
   const format = 'toLocaleString' // date format
-  const dateHelper = new AioDatetimeHelper(currentDate, format);
+  const dateHelper = new AioDateHelper(currentDate, format);
   dateHelper.locale = 'en-US' || ['en-US', 'id-ID']; // to set date locale
 
 ```
@@ -43,7 +45,7 @@ The `distance` method of the `AioDateHelper` class calculates the time differenc
 
 ## Usage
 ```typescript
-const dateHelper = new AioDatetimeHelper();
+const dateHelper = new AioDateHelper();
 const date1 = new Date('2020-01-01');
 const date2 = new Date('2022-06-15');
 
@@ -69,7 +71,7 @@ This method returns the multiplier for a given unit of time.
 
 ## Usage
 ```typescript
-const dateHelper = new AioDatetimeHelper();
+const dateHelper = new AioDateHelper();
 const multiplier = dateHelper.multiplier('day'); // returns the multiplier for days
 const multiplier = dateHelper.multiplier('hour'); // returns the multiplier for hours
 ```
@@ -109,7 +111,7 @@ This method extracts date parts from a `Date` object or auto-normalizes excess t
 ## Usage
 
 ```typescript
-const dateHelper = new AioDatetimeHelper();
+const dateHelper = new AioDateHelper();
 const dateParts1 = dateHelper.getDatePart(new Date()); // extracts date parts from the current date
 const dateParts2 = dateHelper.getDatePart({ second: 75, minute: 90, hour: 25 }); // normalizes excess time from one unit to another
   
@@ -130,7 +132,7 @@ const dateParts2 = dateHelper.getDatePart({ second: 75, minute: 90, hour: 25 });
 Calculates the date of when the next / last Sunday from `parameter` or will calculated from `currentDate` given.
 
 ```typescript
-  const dateHelper = new AioDatetimeHelper();
+  const dateHelper = new AioDateHelper();
   const date = new Date('2022-13-19');
   const nextSunday = dateHelper.nextSunday(date); // returns new Date('2022-03-23')
   const lastSunday = dateHelper.lastSunday(date); // returns new Date('2025-03-16')
@@ -163,7 +165,7 @@ This method calculates the next date based on the given parameters. It takes a v
 ## Usage
 
 ```typescript
-const dateHelper = new AioDatetimeHelper();
+const dateHelper = new AioDateHelper();
 
 const nextDate1 = dateHelper.next({ distance: 1, unit: 'day' }); // adds 1 day to the current date
 const lastDate1 = dateHelper.last({ distance: 1, unit: 'year' }, {distance: 3, unit: 'month'}); // adds 1 day to the current date
@@ -183,7 +185,7 @@ Generate Schedule Date Function
 =====================================
 
 ### Overview
-  The `generateScheduleDate` function is an example usage of the `AioDatetimeHelper` class. It generates a schedule date based on the provided interval and notification configuration.
+  The `generateScheduleDate` function is an example usage of the `AioDateHelper` class. It generates a schedule date based on the provided interval and notification configuration.
 
 ### Function Signature
 
@@ -199,7 +201,7 @@ generateScheduleDate(i: number, config: INotificationConfig): Date
 A `Date` object representing the generated schedule date.
 
 ## Usage
-This function demonstrates how to utilize the `AioDatetimeHelper` class to calculate a schedule date based on a given interval and notification configuration. You can use this function as a starting point to integrate scheduling logic into your application.
+This function demonstrates how to utilize the `AioDateHelper` class to calculate a schedule date based on a given interval and notification configuration. You can use this function as a starting point to integrate scheduling logic into your application.
 
 ### Example
 ```typescript
@@ -217,6 +219,6 @@ This function demonstrates how to utilize the `AioDatetimeHelper` class to calcu
   }
   
 ```
-Note that this function is an example usage of the `AioDatetimeHelper` class. You may need to modify it to fit your specific use case or application requirements.
+Note that this function is an example usage of the `AioDateHelper` class. You may need to modify it to fit your specific use case or application requirements.
 
 cheers `YMGH` 🥳🍻

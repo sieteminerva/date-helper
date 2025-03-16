@@ -1,9 +1,8 @@
-import { AioDatetimeHelper } from './date-helper.class';
-import { IDatetimeDistance } from './date-helper.interface';
+import { AioDateHelper, IDatetimeDistance } from './date-helper.class';
 import './style.css';
 
 /* Date Distance 
-a function that run AioDatetimeHelper.distance(), calculate distance between two date
+a function that run AioDateHelper.distance(), calculate distance between two date
 (dateEl_1 and dateEl_2) and add eventlistener on that date input, then print the calculated value on distanceOutput
 */
 const dateEl_1 = document.getElementById('date-distance-1') as HTMLInputElement;
@@ -11,7 +10,7 @@ const dateEl_2 = document.getElementById('date-distance-2') as HTMLInputElement;
 const distanceOutput = document.getElementById('output-distance') as HTMLInputElement;
 
 function calculateDistance() {
-  const dateHelper = new AioDatetimeHelper();
+  const dateHelper = new AioDateHelper();
 
   function handleDateChange() {
     console.clear();
@@ -35,9 +34,9 @@ calculateDistance();
 
 
 /* Date Next / Last 
-a function that run AioDatetimeHelper.next() and AioDatetimeHelper.last()
+a function that run AioDateHelper.next() and AioDateHelper.last()
 add eventlistener on dateNextLast input, and changes parameter on year, month, 
-week, day, hour, minute, second then run AioDatetimeHelper.next() and AioDatetimeHelper.last() 
+week, day, hour, minute, second then run AioDateHelper.next() and AioDateHelper.last() 
 and print the value on nextLastOutput 
 */
 const dateNextLast = document.getElementById('date-next-last') as HTMLInputElement;
@@ -54,7 +53,7 @@ const second = document.getElementById('second') as HTMLInputElement;
 const nextLastOutput = document.getElementById('output-next-last') as HTMLInputElement;
 
 function calculateNextLast() {
-  const dateHelper = new AioDatetimeHelper();
+  const dateHelper = new AioDateHelper();
 
   function calculate() {
     console.clear();
@@ -98,7 +97,7 @@ function calculateNextLast() {
 calculateNextLast();
 
 /* Date Multiplier 
-a function that run AioDatetimeHelper.multiplier()
+a function that run AioDateHelper.multiplier()
 base on selected value from multiplierOption, create eventlistener on option value change
 and print the value on multiplierOutput
 */
@@ -108,7 +107,7 @@ const multiplierOutput = document.getElementById('output-multiplier') as HTMLInp
 function showMultiplier() {
   function updateMultiplierOutput() {
     console.clear();
-    const dateHelper = new AioDatetimeHelper();
+    const dateHelper = new AioDateHelper();
     const selectedUnit = multiplierOption.value as IDatetimeDistance['unit'];
     console.log('Selected Unit    :', selectedUnit);
     const multiplierValue = dateHelper.multiplier(selectedUnit);
@@ -122,14 +121,14 @@ function showMultiplier() {
 showMultiplier();
 
 /* Date Part 
-a function that run AioDatetimeHelper.getDatePart
+a function that run AioDateHelper.getDatePart
 add eventlistener on datePart input, and print the value on datePartOutput
 */
 const datePart = document.getElementById('date-part') as HTMLInputElement;
 const datePartOutput = document.getElementById('output-date-part') as HTMLDivElement;
 
 function getDatePart() {
-  const dateHelper = new AioDatetimeHelper();
+  const dateHelper = new AioDateHelper();
 
   function handleDatePartChange() {
     const date = datePart.value;
@@ -149,7 +148,7 @@ function getDatePart() {
 getDatePart();
 
 /* Date Locale 
-a function that run AioDatetimeHelper.locale
+a function that run AioDateHelper.locale
 add eventlistener on dateLocale input, and print the value on localeOutput, 
 based on selected value from selectlocale
 */
@@ -166,7 +165,7 @@ function setLocale() {
 
     if (date && locale) {
       console.clear();
-      const dateHelper = new AioDatetimeHelper(date, 'toLocaleString');
+      const dateHelper = new AioDateHelper(date, 'toLocaleString');
       dateHelper.locale = locale;
       const output = `
         Source      : ${date.toLocaleString()} | \n\n
