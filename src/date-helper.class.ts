@@ -2,16 +2,16 @@
  * 
  * Represents a distance in time, consisting of a numerical value and a unit of time.
  *
- * @interface IDatetimeDistance
+ * @interface IDateDistance
  * @property {number} distance - The numerical value representing the distance.
  * @property {'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year'} unit - The unit of time for the distance.
  */
-export interface IDatetimeDistance {
+export interface IDateDistance {
   distance: number;
   unit: 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
 }
 
-export interface IDatetimeMultiplier extends IDatetimeDistance {
+export interface IDateMultiplier extends IDateDistance {
   multiplier: number;
 }
 
@@ -19,7 +19,7 @@ export interface IDatetimeMultiplier extends IDatetimeDistance {
  * 
  * Represents a set of datetime parts, such as seconds, minutes, hours, days, months, and years.
  *
- * @interface IDatetimePartObject
+ * @interface IDatePartObject
  * @property {number} [second] - The number of seconds.
  * @property {number} [minute] - The number of minutes.
  * @property {number} [hour] - The number of hours.
@@ -27,7 +27,7 @@ export interface IDatetimeMultiplier extends IDatetimeDistance {
  * @property {number} [month] - The number of months.
  * @property {number} [year] - The number of years.
  */
-export interface IDatetimePartObject {
+export interface IDatePartObject {
   second?: number;
   minute?: number;
   hour?: number;
@@ -38,13 +38,13 @@ export interface IDatetimePartObject {
 
 /**
  * 
- * Extends IDatetimePartObject to include a week property, representing a set of datetime parts with an additional week component.
+ * Extends IDatePartObject to include a week property, representing a set of datetime parts with an additional week component.
  *
- * @interface IDatetimeMultiplier
- * @extends {IDatetimePartObject}
+ * @interface IDateMultiplier
+ * @extends {IDatePartObject}
  * @property {number} [week] - The number of weeks.
  */
-export interface IDatetimeMultiplier extends IDatetimePartObject {
+export interface IDateMultiplier extends IDatePartObject {
   week?: number;
 }
 
@@ -184,7 +184,7 @@ export class AioDateHelper {
    * Helper function that Returns the multiplier for the given time unit or an object with all units and their millisecond values.
    * example use for calculating date difference in seconds: `AioHelperDatetime.multiplier('second')`
    * 
-   * @param {IDatetimeDistance["unit"]} [unit=null] - The time unit to get the multiplier for (optional).
+   * @param {IDateDistance["unit"]} [unit=null] - The time unit to get the multiplier for (optional).
    * @returns {number} The multiplier for the specified unit or an object with all units and their multipliers.
    * @example
    * ```ts
@@ -194,7 +194,7 @@ export class AioDateHelper {
    * 
    * ```
    */
-  multiplier(unit?: IDatetimeDistance['unit']): number | { [unit: string]: number; } {
+  multiplier(unit?: IDateDistance['unit']): number | { [unit: string]: number; } {
     const second = 1000;
     const minute = second * 60;
     const hour = minute * 60;
@@ -214,10 +214,10 @@ export class AioDateHelper {
   /**
    *  
    * Extracts date parts from a "Date object" or 
-   * Auto Normalizes excess time from one unit to another higher unit in an "IDatetimePartObject".
+   * Auto Normalizes excess time from one unit to another higher unit in an "IDatePartObject".
    * example use: {second:75, minute:90, hour:25} => {second: 15, minute: 31, hour: 2, day: 1}
-   * @param {(IDatetimePartObject | Date)} params - The Date object or IDatetimePartObject to extract/normalize.
-   * @returns {IDatetimePartObject} The extracted or normalized date parts.
+   * @param {(IDatePartObject | Date)} params - The Date object or IDatePartObject to extract/normalize.
+   * @returns {IDatePartObject} The extracted or normalized date parts.
    * @example
    * ```ts
    * 
@@ -229,8 +229,8 @@ export class AioDateHelper {
    * 
    * ```
    */
-  getDatePart(params: IDatetimePartObject | Date): IDatetimePartObject {
-    let result: IDatetimePartObject;
+  getDatePart(params: IDatePartObject | Date): IDatePartObject {
+    let result: IDatePartObject;
 
     if (params instanceof Date) {
       const year = params.getFullYear();
@@ -251,8 +251,8 @@ export class AioDateHelper {
        *
        */
       const normalizeDatePart = (
-        propertyToCheck: IDatetimeDistance['unit'],
-        propertyToAdd: IDatetimeDistance['unit'],
+        propertyToCheck: IDateDistance['unit'],
+        propertyToAdd: IDateDistance['unit'],
         limit: number
       ) => {
 
@@ -276,11 +276,11 @@ export class AioDateHelper {
       params = { ...params, ...normalizeDatePart('hour', 'day', 24) };
       params = { ...params, ...normalizeDatePart('day', 'month', 31) }; // pontential accuracy flaw
       params = { ...params, ...normalizeDatePart('month', 'year', 12) };
-      result = params as IDatetimePartObject;
+      result = params as IDatePartObject;
 
       for (const key in result) {
-        if (result[key as keyof IDatetimePartObject] === null || result[key as keyof IDatetimePartObject] === undefined || result[key as keyof IDatetimePartObject] === 0) {
-          delete result[key as keyof IDatetimePartObject];
+        if (result[key as keyof IDatePartObject] === null || result[key as keyof IDatePartObject] === undefined || result[key as keyof IDatePartObject] === 0) {
+          delete result[key as keyof IDatePartObject];
         }
       }
     }
@@ -342,11 +342,11 @@ export class AioDateHelper {
    * 
    * Calculates the next date based on the given parameters.
    *
-   * @param {...(IDatetimeDistance | IDatetimePartObject)} params - The parameters to calculate the next date.
-   *  if params is an `IDatetimeDistance` object :
+   * @param {...(IDateDistance | IDatePartObject)} params - The parameters to calculate the next date.
+   *  if params is an `IDateDistance` object :
    *  - distance : number of distance you want to add.
    *  - unit : `second`, `minute`, `hour`, `day`, `week`, `month`, `year`
-   *  if params is an `IDatetimePartObject` object :
+   *  if params is an `IDatePartObject` object :
    *  - second (optional) : the number of seconds to add.
    *  - minute (optional) : the number of minutes to add.
    *  - hour (optional) : the number of hours to add.
@@ -359,22 +359,22 @@ export class AioDateHelper {
    *    
    *    const dateHelper = new AioDatetimeHelper();   
    * 
-   *    const paramDistance1: IDatetimeDistance = { distance: 1, unit: 'day' }; 
+   *    const paramDistance1: IDateDistance = { distance: 1, unit: 'day' }; 
    *    const nextDate1 = dateHelper.next(param1); // adds 1 day to the current date
    *  
-   *    const paramDistance2: IDatetimeDistance = { distance: 5, unit: 'year' }; 
+   *    const paramDistance2: IDateDistance = { distance: 5, unit: 'year' }; 
    *    const nextDate2 = dateHelper.next(param1, param2); // adds 1 day and 5 years to the current date
    *    
-   *    const paramPart1:IDatetimePartObject = { year: 30 };
+   *    const paramPart1:IDatePartObject = { year: 30 };
    *    const nextDate3 = dateHelper.next(param2); // adds 30 years to the current date
    *    
-   *    const paramPart2:IDatetimePartObject = { second: 25, minute: 15 };
+   *    const paramPart2:IDatePartObject = { second: 25, minute: 15 };
    *    const nextDate4 = dateHelper.next(param1, param2); // adds 30 years + 25 seconds and 15 minutes to the current date
    * 
    * ```
    * 
    */
-  next(...params: (IDatetimeDistance | IDatetimePartObject)[]): Date {
+  next(...params: (IDateDistance | IDatePartObject)[]): Date {
     const today = new Date(this.currentDate).getTime();
     let _result: number = today;
 
@@ -384,7 +384,7 @@ export class AioDateHelper {
       } else {
         const datePart = this.getDatePart(param);
         for (const key in datePart) {
-          const _multiplier = (datePart as any)[key] * (this.multiplier(key as IDatetimeDistance['unit']) as number);
+          const _multiplier = (datePart as any)[key] * (this.multiplier(key as IDateDistance['unit']) as number);
           _result += _multiplier;
         }
       }
@@ -400,11 +400,11 @@ export class AioDateHelper {
    * 
    * Calculates the date of the last occurrence of the given parameters.
    *
-   * @param {...(IDatetimeDistance | IDatetimePartObject)} params - The parameters to calculate the last date.
-   *  if params is an IDatetimeDistance object :
+   * @param {...(IDateDistance | IDatePartObject)} params - The parameters to calculate the last date.
+   *  if params is an IDateDistance object :
    *  - distance : number of distance you want to remove.
    *  - unit : `second`, `minute`, `hour`, `day`, `week`, `month`, `year`
-   *  if params is an IDatetimePartObject object :
+   *  if params is an IDatePartObject object :
    *  - second (optional) : the number of seconds to remove.
    *  - minute (optional) : the number of minutes to remove.
    *  - hour (optional) : the number of hours to remove.
@@ -424,7 +424,7 @@ export class AioDateHelper {
    * ```
    * 
    */
-  last(...params: (IDatetimeDistance | IDatetimePartObject)[]): Date {
+  last(...params: (IDateDistance | IDatePartObject)[]): Date {
     const today = new Date(this.currentDate).getTime();
     let _result: number = today;
 
@@ -434,7 +434,7 @@ export class AioDateHelper {
       } else {
         const datePart = this.getDatePart(param);
         for (const key in datePart) {
-          const _multiplier = (datePart as any)[key] * (this.multiplier(key as IDatetimeDistance['unit']) as number);
+          const _multiplier = (datePart as any)[key] * (this.multiplier(key as IDateDistance['unit']) as number);
           _result -= _multiplier;
         }
       }
@@ -451,7 +451,7 @@ export class AioDateHelper {
    *
    * @param {Date} date1 - The first date.
    * @param {Date} [date2=this.currentDate] - The second date (defaults to today).
-   * @returns {IDatetimePartObject} An object representing the time difference in years, months, days, hours, minutes, and seconds.
+   * @returns {IDatePartObject} An object representing the time difference in years, months, days, hours, minutes, and seconds.
    * The properties with null, undefined or 0 value are delete.
    * @example
    * ```ts
@@ -467,7 +467,7 @@ export class AioDateHelper {
    * ```
    * 
    */
-  distance(date1: Date, date2: Date = this.currentDate): IDatetimePartObject {
+  distance(date1: Date, date2: Date = this.currentDate): IDatePartObject {
 
     this._validateDate(date1, date2);
 
@@ -483,11 +483,11 @@ export class AioDateHelper {
     const minute = _diff.getUTCMinutes();
     const second = _diff.getUTCSeconds();
 
-    const obj: IDatetimePartObject = { year, month, day, hour, minute, second };
+    const obj: IDatePartObject = { year, month, day, hour, minute, second };
 
     for (let key in obj) {
-      if (obj[key as keyof IDatetimePartObject] === null || obj[key as keyof IDatetimePartObject] === undefined || obj[key as keyof IDatetimePartObject] === 0) {
-        delete obj[key as keyof IDatetimePartObject];
+      if (obj[key as keyof IDatePartObject] === null || obj[key as keyof IDatePartObject] === undefined || obj[key as keyof IDatePartObject] === 0) {
+        delete obj[key as keyof IDatePartObject];
       }
     }
 
