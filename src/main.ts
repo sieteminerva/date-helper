@@ -1,4 +1,4 @@
-import { AioDateHelper, IDatetimeDistance } from './date-helper.class';
+import { AioDateHelper, IDateDistance } from './date-helper.class';
 import './style.css';
 
 /* Date Distance 
@@ -108,7 +108,7 @@ function showMultiplier() {
   function updateMultiplierOutput() {
     console.clear();
     const dateHelper = new AioDateHelper();
-    const selectedUnit = multiplierOption.value as IDatetimeDistance['unit'];
+    const selectedUnit = multiplierOption.value as IDateDistance['unit'];
     console.log('Selected Unit    :', selectedUnit);
     const multiplierValue = dateHelper.multiplier(selectedUnit);
     console.log('Multiplier Value :', multiplierValue);
