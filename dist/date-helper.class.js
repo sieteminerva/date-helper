@@ -2,7 +2,7 @@
  *
  * finding the next or last occurrence of a date, and extracting date parts.
  *
- * @class AioDateHelper
+ * @class AioDateHelper v0.1.6
  */
 export class AioDateHelper {
     /**
