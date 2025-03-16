@@ -69,7 +69,7 @@ export interface INotificationConfig {
  * A utility class for handling datetime operations, including calculating distances,
  * finding the next or last occurrence of a date, and extracting date parts.
  * 
- * @class AioDatetimeHelper
+ * @class AioDatetimeHelper v0.1.9
  */
 export class AioDateHelper {
 
