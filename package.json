@@ -1,0 +1,33 @@
+{
+  "name": "@jekipedia/date-helper",
+  "author": "YMGH",
+  "version": "0.1.4",
+  "description": "A utility class for handling datetime operations, including calculating distances, finding the next or last occurrence of a date, and extracting date parts.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "dist/**/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sieteminerva/date-helper.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node test/test.js"
+  },
+  "keywords": [
+    "date",
+    "datetime",
+    "helper",
+    "utility",
+    "date-helper",
+    "calculate",
+    "date-library"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}
